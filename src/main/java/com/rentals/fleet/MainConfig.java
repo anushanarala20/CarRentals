@@ -22,7 +22,7 @@ public class MainConfig {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("My First Project").build();
+        return new ApiInfoBuilder().title("Car Rentals").build();
     }
 
 }

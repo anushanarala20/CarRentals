@@ -4,15 +4,13 @@ import com.rentals.fleet.beans.BookVehicleRequest;
 import com.rentals.fleet.beans.Response;
 import com.rentals.fleet.entity.Vehicle;
 import com.rentals.fleet.service.VehicleService;
-import io.swagger.annotations.ApiOperation;
-import jdk.jfr.Description;
+import com.rentals.fleet.util.CarRentalsConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.format.DecimalStyle;
 import java.util.List;
 
 @RestController
@@ -28,10 +26,10 @@ public class FleetController {
         Response response = new Response();
         try {
             vehicleService.addVehicle(vehicle);
-            response.setMessage("VEHICLE_ADDED");
+            response.setMessage(CarRentalsConstants.VEHICLE_ADDED);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            response.setMessage("FAILED_TO_ADD_VEHICLE");
+            response.setMessage(CarRentalsConstants.FAILED_TO_ADD_VEHICLE);
         }
         return response;
     }
@@ -43,12 +41,10 @@ public class FleetController {
         Response response = new Response();
         try {
             bookedVehicleDetails = vehicleService.allocateVehiclesForCustomers(bookVehicleRequest);
-            if(bookedVehicleDetails!=null){
-                response.setVehicle(bookedVehicleDetails);
-            }else{
-                response.setMessage("Requested vehicle is not available");
-            }
             response.setVehicle(bookedVehicleDetails);
+            if (null == bookedVehicleDetails) {
+                response.setMessage(CarRentalsConstants.VEHICLES_NOT_AVAILABLE);
+            }
         } catch (Exception e) {
             response.setError(e.getMessage());
             logger.error(e.getMessage());
@@ -76,10 +72,9 @@ public class FleetController {
         Vehicle requestedVehicleDetails = null;
         try {
             requestedVehicleDetails = vehicleService.getRequestedVehicleDetails(name);
-            if(requestedVehicleDetails!=null){
-                response.setVehicle(requestedVehicleDetails);
-            }else{
-                response.setMessage("Requested vehicle details are not available");
+            response.setVehicle(requestedVehicleDetails);
+            if (null == requestedVehicleDetails) {
+                response.setMessage(CarRentalsConstants.VEHICLE_DETAILS_NOT_AVAILABLE);
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -90,16 +85,19 @@ public class FleetController {
 
     /*Get all booked vehicle details */
     @RequestMapping(value = "/getBookedVehicles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Vehicle> getAllocatedVehicles() {
+    public Response getAllocatedVehicles() {
+        Response response = new Response();
         List<Vehicle> allocatedVehicles = null;
         try {
             allocatedVehicles = vehicleService.getAllAllocatedVehicles();
-            System.out.println("allocated vehicles" + allocatedVehicles);
-
+            response.setVehicleList(allocatedVehicles);
+            if (null == allocatedVehicles) {
+                response.setMessage(CarRentalsConstants.NO_BOOKINGS_ARE_MADE);
+            }
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
-        return allocatedVehicles;
+        return response;
     }
 
     /*Get all available vehicles to hire */
@@ -121,10 +119,9 @@ public class FleetController {
         List<Vehicle> bookedVehiclesBycustomer = null;
         try {
             bookedVehiclesBycustomer = vehicleService.getAllocatedVehiclesByCustomerId(emailId);
-            if(bookedVehiclesBycustomer!=null){
-                response.setVehicleList(bookedVehiclesBycustomer);
-            }else{
-                response.setMessage("No booked vehicles for requested customer");
+            response.setVehicleList(bookedVehiclesBycustomer);
+            if (null == bookedVehiclesBycustomer) {
+                response.setMessage(CarRentalsConstants.NO_BOOKINGS_ARE_MADE_FOR_CUSTOMER);
             }
         } catch (Exception e) {
             response.setError(e.getMessage());
