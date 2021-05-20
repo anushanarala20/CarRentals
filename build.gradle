@@ -20,11 +20,21 @@ dependencies {
     compile group: 'ch.qos.logback', name:'logback-core', version: '1.0.9'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3.6'
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.0.2'
-    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '7.0.0.Final'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
+    testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    testImplementation(
+            'junit:junit:4.12',
+            'org.junit.jupiter:junit-jupiter-api:5.4.2'
+    )
+    testRuntime(
+            'org.junit.jupiter:junit-jupiter-engine:5.4.2',
+            'org.junit.vintage:junit-vintage-engine:5.4.2'
+    )
 }
 
 test {

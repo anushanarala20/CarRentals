@@ -6,6 +6,12 @@ public class BookVehicleRequest {
     private String vehicleType;
     private String preference;
 
+    public BookVehicleRequest(String email, String vehicleType, String preference) {
+        this.email = email;
+        this.vehicleType = vehicleType;
+        this.preference = preference;
+    }
+
     public String getEmail() {
         return email;
     }
