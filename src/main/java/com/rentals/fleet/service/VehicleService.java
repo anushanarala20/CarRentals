@@ -26,11 +26,13 @@ public class VehicleService {
         totalVehicles.add(new Vehicle("Nissan", 12000 , 4, 5, "Car", "Comfort", true));
         totalVehicles.add(new Vehicle("Murano", 20000, 4, 5, "Van", "Comfort", true));
         totalVehicles.add(new Vehicle("Ferrari", 40000, 4, 5, "Convertible Car", "Luxury", true));
+       totalVehicles.add(new Vehicle("BMW ", 45000, 4, 5, "Convertible Car", "Luxury", true));
         totalVehicles.add(new Vehicle("Audi",  38000, 4, 5, "Car", "Luxury", true));
         totalVehicles.add(new Vehicle("Vauxhall" , 42000, 4, 7, "Van", "ComfortXl", true));
         totalVehicles.add(new Vehicle("Volkswagen", 45000, 4, 7, "Van", "ComfortXl", true));
         totalVehicles.add(new Vehicle("Harley-Davidson", 5000, 2, 2, "MotorBike", "Sportsbike", true));
         totalVehicles.add(new Vehicle("Yamaha", 3000, 2, 2, "MotorBike", "Cruiser", true));
+       totalVehicles.add(new Vehicle("Artisan", 3000, 2, 2, "MotorBike", "Electric", true));
     }
 
     public List<Vehicle> getAllVehiclesList() {
@@ -43,7 +45,7 @@ public class VehicleService {
      * @param vehicle
      */
     public void addVehicle(Vehicle vehicle) {
-        if (totalVehicles != null) {
+        if (null != totalVehicles) {
             totalVehicles.add(vehicle);
             logger.info("Added vehicle successfully");
         }
@@ -96,7 +98,7 @@ public class VehicleService {
      */
     public Vehicle allocateVehiclesForCustomers(BookVehicleRequest bookVehicleRequest) {
         Vehicle vehicle = checkAvailability(bookVehicleRequest);
-        if (vehicle != null) {
+        if (null != vehicle) {
             if (null != customerBookingMap.get(bookVehicleRequest.getEmail())) {
                 customerBookingMap.get(bookVehicleRequest.getEmail()).add(vehicle);
             } else {

@@ -48,8 +48,8 @@
     1. For Requesting Car
    ```{
         "email": "anushanarala20@gmail.com", // customer's email Id
-        "preference": "Comfort", // Customers are required to provide their preference like Comfort, Luxury, Convertible Car
-        "vehicleType": "Car" // Customers are required to provide type of vehcile like Car, Van, MotorBike
+        "preference": "Comfort", // Customers are required to provide their preference like Comfort, Luxury
+        "vehicleType": "Car" // Customers are required to provide type of vehcile like Car, Convertible Car
        }```
    
    2. For Requesting Van
@@ -62,7 +62,7 @@
    2. For Requesting MotorBike
    ```{
         "email": "anushanarala20@gmail.com", // customer's email Id
-        "preference": "ComfortXl", // Customers are required to provide their preference like Sportsbike, Cruiser
+        "preference": "ComfortXl", // Customers are required to provide their preference like Sportsbike, Cruiser, Electric
         "vehicleType": "MotorBike" // Customers are required to provide type of vehcile like MotorBike
        }```
    

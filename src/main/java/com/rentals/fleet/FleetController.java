@@ -67,7 +67,7 @@ public class FleetController {
 
     /*Get specific vehicle details by providing name*/
     @RequestMapping(value = "/getRequestedVehicleDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response getRequestedVehicleDetails(String name) {
+    public Response getRequestedVehicleDetails(@RequestParam(name="name", required = true) String name) {
         Response response = new Response();
         Vehicle requestedVehicleDetails = null;
         try {
@@ -93,6 +93,7 @@ public class FleetController {
             allocatedVehicles = vehicleService.getAllAllocatedVehicles();
             response.setVehicleList(allocatedVehicles);
             if (allocatedVehicles.size() == 0) {
+                response.setVehicleList(null);
                 response.setMessage(CarRentalsConstants.NO_BOOKINGS_ARE_MADE);
             }
         } catch (Exception e) {
@@ -116,13 +117,13 @@ public class FleetController {
 
     /*Get booked vehicles by customerId */
     @RequestMapping(value = "/getAllocatedVehiclesByCustomerId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Response getAllocatedVehiclesByCustomerId(String emailId) {
+    public Response getAllocatedVehiclesByCustomerId(@RequestParam(name="emailId", required = true) String emailId) {
         Response response = new Response();
         List<Vehicle> bookedVehiclesBycustomer = null;
         try {
             bookedVehiclesBycustomer = vehicleService.getAllocatedVehiclesByCustomerId(emailId);
             response.setVehicleList(bookedVehiclesBycustomer);
-            if (bookedVehiclesBycustomer.size()==0) {
+            if (null == bookedVehiclesBycustomer) {
                 response.setMessage(CarRentalsConstants.NO_BOOKINGS_ARE_MADE_FOR_CUSTOMER);
             }
         } catch (Exception e) {
