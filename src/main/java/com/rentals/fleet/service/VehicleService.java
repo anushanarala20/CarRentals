@@ -4,6 +4,7 @@ import com.rentals.fleet.beans.BookVehicleRequest;
 import com.rentals.fleet.entity.Vehicle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
-public class VehicleService {
+@Component
+public class VehicleService implements VehicleServiceInterface{
     private static final Logger logger = LoggerFactory.getLogger(VehicleService.class);
     private static ArrayList<Vehicle> totalVehicles = new ArrayList();
     private ArrayList<Vehicle> allocatedVehicles = new ArrayList();

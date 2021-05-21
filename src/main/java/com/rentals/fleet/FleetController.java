@@ -4,6 +4,7 @@ import com.rentals.fleet.beans.BookVehicleRequest;
 import com.rentals.fleet.beans.Response;
 import com.rentals.fleet.entity.Vehicle;
 import com.rentals.fleet.service.VehicleService;
+import com.rentals.fleet.service.VehicleServiceInterface;
 import com.rentals.fleet.util.CarRentalsConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,7 @@ public class FleetController {
     private static final Logger logger = LoggerFactory.getLogger(VehicleService.class);
 
     @Autowired
-    VehicleService vehicleService;
+    VehicleServiceInterface vehicleService;
 
     /*Add vehicle to the Fleet*/
     @RequestMapping(value = "/addVehicle", method = RequestMethod.POST)
